@@ -17,4 +17,8 @@ RUN mvn clean package
 FROM openjdk:21
 EXPOSE 8761
 COPY --from=build /target/eureka-0.0.1-SNAPSHOT.jar app.jar
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+COPY --from=build /target/newrelic /newrelic
+COPY --from=build /src/main/resources/newrelic.yml /newrelic/newrelic.yml
+
+# Variables de entorno para New Relic
+ENTRYPOINT ["java","-javaagent:/newrelic/newrelic.jar","-jar","/app.jar"]
