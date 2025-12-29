@@ -14,7 +14,7 @@ RUN mvn clean package
 # Exponemos el puerto que nuestro componente va a usar para escuchar peticiones
 # Copiamos desde "build" el JAR generado (la ruta de generacion es la misma que veriamos en local) y lo movemos y renombramos en destino como 
 # Marcamos el punto de arranque de la imagen con el comando "java -jar app.jar" que ejecutará nuestro componente.
-FROM openjdk:21
+FROM eclipse-temurin:21-jre-alpine
 EXPOSE 8761
 COPY --from=build /target/eureka-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
